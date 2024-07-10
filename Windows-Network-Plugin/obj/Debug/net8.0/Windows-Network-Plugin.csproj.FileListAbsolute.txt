@@ -1,0 +1,6 @@
+C:\Users\Administrator\Documents\GitHub\Windows-Network-Plugin\Windows-Network-Plugin\obj\Debug\net8.0\Windows-Network-Plugin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\Documents\GitHub\Windows-Network-Plugin\Windows-Network-Plugin\obj\Debug\net8.0\Windows-Network-Plugin.AssemblyInfoInputs.cache
+C:\Users\Administrator\Documents\GitHub\Windows-Network-Plugin\Windows-Network-Plugin\obj\Debug\net8.0\Windows-Network-Plugin.AssemblyInfo.cs
+C:\Users\Administrator\Documents\GitHub\Windows-Network-Plugin\Windows-Network-Plugin\obj\Debug\net8.0\Windows-Network-Plugin.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\GitHub\Windows-Network-Plugin\Windows-Network-Plugin\obj\Debug\net8.0\Windows-Network-Plugin.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Administrator\Documents\GitHub\Windows-Network-Plugin\Windows-Network-Plugin\obj\Debug\net8.0\Windows-Network-Plugin.sourcelink.json

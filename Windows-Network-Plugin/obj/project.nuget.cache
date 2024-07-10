@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "CWnAkJd5QfY=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Administrator\\Documents\\GitHub\\Windows-Network-Plugin\\Windows-Network-Plugin\\Windows-Network-Plugin.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\system.windows.forms.datavisualization\\1.0.0-prerelease.20110.1\\system.windows.forms.datavisualization.1.0.0-prerelease.20110.1.nupkg.sha512"
+  ],
+  "logs": []
+}
