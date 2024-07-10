@@ -20,13 +20,19 @@ namespace Windows_Network_Plugin
 
         private void InitializeChart()
         {
-            chart1.Series.Clear();
+            if (chart1.Series != null)
+            {
+                chart1.Series.Clear();
+            }
+
             chart1.ChartAreas.Clear();
 
             // Add Chart Area
-            ChartArea chartArea = new ChartArea();
-            chartArea.AxisX.Title = "Time";
-            chartArea.AxisY.Title = "Bytes per Second";
+            ChartArea chartArea = new ChartArea
+            {
+                AxisX = { Title = "Time" },
+                AxisY = { Title = "Bytes per Second" }
+            };
             chart1.ChartAreas.Add(chartArea);
 
             // Add Series for Bytes Sent
@@ -74,7 +80,17 @@ namespace Windows_Network_Plugin
 
         private void UpdateChart(string seriesName, long value)
         {
+            if (chart1.Series == null)
+            {
+                return;
+            }
+
             var series = chart1.Series[seriesName];
+            if (series == null)
+            {
+                return;
+            }
+
             series.Points.AddY(value);
 
             if (series.Points.Count > 60) // Keep only 60 points

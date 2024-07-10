@@ -10,7 +10,7 @@ namespace Windows_Network_Plugin
     public class TrayApplicationContext : ApplicationContext
     {
         private NotifyIcon trayIcon;
-        private Timer timer;
+        private Timer updateTimer;
         private long previousBytesSent;
         private long previousBytesReceived;
 
@@ -21,25 +21,34 @@ namespace Windows_Network_Plugin
             {
                 Icon = SystemIcons.Application,
                 ContextMenuStrip = new ContextMenuStrip(),
-                Visible = true
+                Visible = true,
+                Text = "Network Traffic Monitor"
             };
 
             // Add menu items to context menu
             trayIcon.ContextMenuStrip.Items.Add("Show Network Traffic", null, ShowNetworkTraffic);
             trayIcon.ContextMenuStrip.Items.Add("Exit", null, Exit);
 
-            // Initialize Timer
-            timer = new Timer
+            // Initialize Timers
+            updateTimer = new Timer
             {
                 Interval = 1000 // 1 second
             };
-            timer.Tick += Timer_Tick;
-            timer.Start();
+            updateTimer.Tick += UpdateTimer_Tick;
+            updateTimer.Start();
+
+            // Mouse events for the tray icon
+            trayIcon.MouseMove += TrayIcon_MouseMove;
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void UpdateTimer_Tick(object sender, EventArgs e)
         {
             UpdateTrayIcon();
+        }
+
+        private void TrayIcon_MouseMove(object sender, MouseEventArgs e)
+        {
+            UpdateTooltipText();
         }
 
         private void UpdateTrayIcon()
@@ -82,6 +91,32 @@ namespace Windows_Network_Plugin
                 DestroyIcon(hIcon);
                 bitmap.Dispose();
             }
+        }
+
+        private void UpdateTooltipText()
+        {
+            var networkInterface = NetworkInterface.GetAllNetworkInterfaces()[0]; // Get the first network interface
+            var statistics = networkInterface.GetIPv4Statistics();
+
+            long bytesSentPerSecond = statistics.BytesSent - previousBytesSent;
+            long bytesReceivedPerSecond = statistics.BytesReceived - previousBytesReceived;
+
+            string tooltipText = $"Sent: {FormatBytes(bytesSentPerSecond)}/s, Received: {FormatBytes(bytesReceivedPerSecond)}/s";
+            trayIcon.Text = tooltipText.Length > 63 ? tooltipText.Substring(0, 63) + "..." : tooltipText;
+        }
+
+        private string FormatBytes(long bytes)
+        {
+            const int scale = 1024;
+            string[] orders = new string[] { "B", "KB", "MB", "GB", "TB" };
+            double max = bytes;
+            int order = 0;
+            while (max >= scale && order < orders.Length - 1)
+            {
+                order++;
+                max = max / scale;
+            }
+            return String.Format("{0:0.##} {1}", max, orders[order]);
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
