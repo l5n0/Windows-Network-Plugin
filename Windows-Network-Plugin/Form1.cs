@@ -21,17 +21,24 @@ namespace Windows_Network_Plugin
         private void InitializeChart()
         {
             chart1.Series.Clear();
-            chart1.ChartAreas[0].AxisX.Title = "Time";
-            chart1.ChartAreas[0].AxisY.Title = "Bytes per Second";
+            chart1.ChartAreas.Clear();
 
-            var seriesSent = new Series
+            // Add Chart Area
+            ChartArea chartArea = new ChartArea();
+            chartArea.AxisX.Title = "Time";
+            chartArea.AxisY.Title = "Bytes per Second";
+            chart1.ChartAreas.Add(chartArea);
+
+            // Add Series for Bytes Sent
+            Series seriesSent = new Series
             {
                 Name = "Bytes Sent",
                 ChartType = SeriesChartType.Line
             };
             chart1.Series.Add(seriesSent);
 
-            var seriesReceived = new Series
+            // Add Series for Bytes Received
+            Series seriesReceived = new Series
             {
                 Name = "Bytes Received",
                 ChartType = SeriesChartType.Line
@@ -60,13 +67,19 @@ namespace Windows_Network_Plugin
             previousBytesSent = statistics.BytesSent;
             previousBytesReceived = statistics.BytesReceived;
 
-            chart1.Series["Bytes Sent"].Points.AddY(bytesSentPerSecond);
-            chart1.Series["Bytes Received"].Points.AddY(bytesReceivedPerSecond);
+            // Update chart
+            UpdateChart("Bytes Sent", bytesSentPerSecond);
+            UpdateChart("Bytes Received", bytesReceivedPerSecond);
+        }
 
-            if (chart1.Series["Bytes Sent"].Points.Count > 60) // Keep only 60 points
+        private void UpdateChart(string seriesName, long value)
+        {
+            var series = chart1.Series[seriesName];
+            series.Points.AddY(value);
+
+            if (series.Points.Count > 60) // Keep only 60 points
             {
-                chart1.Series["Bytes Sent"].Points.RemoveAt(0);
-                chart1.Series["Bytes Received"].Points.RemoveAt(0);
+                series.Points.RemoveAt(0);
             }
 
             chart1.ChartAreas[0].RecalculateAxesScale();
