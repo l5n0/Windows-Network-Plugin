@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Windows-Network-Plugin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca5d0b2a4452b7ef84f40cef981f75bc58871323")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+97df47d3d4c04c7672360d63b25451fe80a9ea7c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Windows-Network-Plugin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Windows-Network-Plugin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
